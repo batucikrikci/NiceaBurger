@@ -1,0 +1,68 @@
+﻿@using NiceaBurger.Areas.Identity.Data
+@model SiparisUrun
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    double toplamTutar = 0;
+}
+
+<h1>ÜRÜN EKLEME</h1>
+
+<form asp-action="Index" method="post">
+    <label asp-for="MenuId">
+        <select asp-for="MenuId" asp-items="@(new SelectList(@ViewBag.TumMenuler,"Id","MenuAdi"))"></select>
+
+    </label>
+    <label asp-for="EkstraMalzemeId">
+        <select asp-for="EkstraMalzemeId" asp-items="@(new SelectList(@ViewBag.TumEkstralar,"Id","Ad"))"></select>
+
+    </label>
+    <input type="submit" value="Yemek Ekle" class="btn btn-success" />
+
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sepetinizdeki Yemekler</th>
+            <th>Hamburger Fiyatı</th>
+            <th>Soslar</th>
+            <th>Sos Fiyatı</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in (List<SiparisUrun>)ViewBag.SiparisUrun)
+       {
+        <tr>
+            <td>
+                @item.Menu.MenuAdi
+            </td>
+            <td>
+               @item.Menu.Fiyat
+            </td>
+            <td>
+               @item.ekstraMalzeme.Ad
+            </td>
+            <td>
+                    @item.ekstraMalzeme.Fiyat
+            </td>
+                <td><a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Sil</a></td>
+        </tr>
+      }
+    </tbody>
+</table>
+
+@{
+    
+    foreach (var item in (List<SiparisUrun>)ViewBag.SiparisUrun)
+    {
+        toplamTutar = item.Menu.Fiyat + item.ekstraMalzeme.Fiyat;
+    }
+    <p>Toplam Tutar: @toplamTutar</p>
+}
+
+ 
+            
+    

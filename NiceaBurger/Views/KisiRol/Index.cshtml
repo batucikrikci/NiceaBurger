@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using NiceaBurger.Areas.Identity.Data
+@inject UserManager<Kullanici> _userManager;
+@model List<Kullanici>
+
+<h1>ROLLER LİSTESİ</h1>
+
+<table class="table table-hover">
+
+    <thead>
+        <tr>
+            <td>Kullanıcı Adı</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.UserName</td>
+                    @{
+                        if (await _userManager.IsInRoleAsync(item, "Musteri"))
+                        {
+                            <td class="text-success">Müşteri Rolü Mevcuttur.</td>
+                            <td><a class="btn btn-danger" asp-action="RolSil" asp-route-id="@item.Id">Müşteri Rolü Sil</a></td>
+
+                        }
+                        else
+                        {
+                            <td><a class="btn btn-success" asp-action="RolEkle" asp-route-id="@item.Id">Müşteri Rolü Ekle</a></td>
+                            <td class="text-danger">Müşteri Rolü Yoktur.</td>
+
+                        }
+                    }
+
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>

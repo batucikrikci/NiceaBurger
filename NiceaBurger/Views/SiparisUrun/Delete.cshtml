@@ -1,0 +1,25 @@
+﻿@model NiceaBurger.Areas.Identity.Data.SiparisUrun
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Ürün Silme Onayı</h1>
+
+<h3>Bu ürünü silmek istediğinizden emin misiniz?</h3>
+<div>
+    <h4>SiparisUrun</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Model.Menu.MenuAdi - @Model.ekstraMalzeme.Ad
+        </dt>
+     </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Listeye Geri Dön</a>
+    </form>
+</div>

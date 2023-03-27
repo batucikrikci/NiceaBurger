@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@model List<IdentityRole>
+
+
+ <h1>ROLLER LİSTESİ</h1>
+
+<a asp-controller="Rol" asp-action="Create">Yeni Rol Ekleme</a>
+
+<table class="table table-hover">
+
+    <thead>
+        <tr>
+            <td>ROL ADI</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td><a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id">DÜZENLE</a></td>
+                    <td><a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">SİL</a></td>
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>
